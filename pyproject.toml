@@ -1,0 +1,16 @@
+[project]
+name = "comfyui-openai-api"
+description = "ComfyUI custom node for LLM chat completions using an OpenAI-compatible API (llama.cpp, LMStudio, Ollama, etc.)"
+version = "1.0.0"
+license = {file = "LICENSE"}
+dependencies = ["numpy>=1.24.0", "Pillow>=10.0.0", "typing>=3.7.4", "openai>=2.1.0"]
+
+[project.urls]
+Repository = "https://github.com/bgreene2/ComfyUI-OpenAI-API"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = "bgreene2"
+DisplayName = "ComfyUI-OpenAI-API"
+Icon = ""
+

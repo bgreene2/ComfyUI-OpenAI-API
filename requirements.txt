@@ -1,0 +1,4 @@
+numpy>=1.24.0
+Pillow>=10.0.0
+typing>=3.7.4 
+openai>=2.1.0
