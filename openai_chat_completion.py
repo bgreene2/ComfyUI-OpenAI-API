@@ -5,6 +5,7 @@ import base64
 from typing import Literal
 from openai import OpenAI
 import re
+import time
 
 class OpenAIChatCompletion:
     """ComfyUI node for LLM chat completion"""
@@ -19,6 +20,7 @@ class OpenAIChatCompletion:
                 "endpoint": ("STRING", {"multiline": False, "default": "http://localhost:8080/v1"}),
                 "api_key": ("STRING", {"multiline": False, "default": "123456"}),
                 "model": ("STRING", {"multiline": False, "default": "prompt-enhancer-32b"}),
+                "sleep": ("INT", {"default": 0, "min": 0, "max": 86400}),
                 "use_temperature": ("BOOLEAN", {"default": False}),
                 "temperature": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 2.0, "step": 0.05}),
                 "use_seed": ("BOOLEAN", {"default": True}),
@@ -45,6 +47,7 @@ class OpenAIChatCompletion:
         pre_prompt: str,
         text_prompt: str,
         model: str,
+        sleep: int,
         endpoint: str,
         api_key: str,
         use_temperature: bool,
@@ -144,6 +147,10 @@ class OpenAIChatCompletion:
         else:
             reasoning = ""
             result = result.strip()
+
+        # Sleep, if necessary
+        if sleep > 0:
+            time.sleep(sleep)
 
         return (result, reasoning,)
 

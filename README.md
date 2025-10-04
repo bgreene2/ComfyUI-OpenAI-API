@@ -31,6 +31,7 @@ The node has the following parameters:
 - pre_prompt - If given, this will be added before the text_prompt to construct the actual user message sent to the LLM
 - endpoint - The hostname or ip address where the API is located. You may need to include "/v1" at the end.
 - model - The name of the AI model to request at the API
+- sleep - Amount of time, in seconds, to delay after calling the LLM but before returning the output
 - use_temperature - Whether to send a temperature
 - temperature - The temperature to send
 - use_seed - Whether to send an RNG seed. If this is not specified, the default behavior of the endpoint will be used, which is probably to use a random seed.
@@ -52,15 +53,17 @@ For basic usage, leave everything default except for `endpoint` and `model`. Con
 ![Basic usage example (before)](assets/basic_usage_example_before.png)
 ![Basic usage example (after)](assets/basic_usage_example_after.png)
 
-See [this example workflow](workflows/flux_dev_example_openai_api.json). It is the ComfyUI Flux Dev example, with this node added.
+See [this example workflow](workflows/flux_dev_example_openai_api.json).
 
 ## Recommended Usage
 
-This node is ideal for prompt enhancement, i.e. you write a basic prompt and the LLM jazzes it up to give more detailed or varied images. There exist nodes to do this that run the LLM within the workflow, allowing its memory to be managed intelligently. Those are a better option if you are running everything on one computer. This node is a good option if you are using an API hosted on a different machine.
+This node is ideal for prompt enhancement, i.e. you write a basic prompt and the LLM jazzes it up to give more detailed or varied images.
+
+This node is a good option if you are using an API hosted on a different machine. The `sleep` parameter is provided to facilitate hosting the API on the same machine. You can run an API server that allows setting a ttl of 1 second (e.g. [llama-swap](https://github.com/mostlygeek/llama-swap), Ollama, etc), then set `sleep` to 2 seconds. The node will call the LLM server, the server will process the request and then unload the model, then the workflow can proceed.
 
 ## Recommended Models
 
-This node was tested with [PromptEnhancer-32B](https://huggingface.co/PromptEnhancer/PromptEnhancer-32B), at GGUF Q8_0 quantization.
+This node was tested with [PromptEnhancer-32B](https://huggingface.co/PromptEnhancer/PromptEnhancer-32B).
 
 ## Credit
 
